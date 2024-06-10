@@ -1,0 +1,102 @@
+<?php
+  session_start();
+  
+  $connect = false ;
+  if(isset($_SESSION['user'])){
+	  $connect = true;
+  }
+ 
+?>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Accueil | Cabinet médical</title>
+		<link rel="stylesheet" type="text/css" href="style.css" />
+	 <style>
+        
+        ul.menu {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+        }
+
+        ul.menu li {
+            float: left;
+        }
+
+        ul.menu li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+
+        form.search {
+            display: flex;
+            align-items: center;
+            margin-left: auto;
+        }
+
+        form.search select, 
+        form.search input[type="search"] {
+            margin-right: 5px;
+            padding: 5px;
+            font-size: 14px;
+            width: 170px; 
+        }
+		form.search select{
+			width: 80px;
+		}
+
+        form.search button {
+            padding: 6px 10px;
+            background-color: blue;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        form.search button:hover {
+            background-color: darkblue;
+        }
+    </style>
+</head>
+<body>
+    <ul class="menu">
+	 <?php 
+		     if($connect){
+				 ?>
+				 
+        <li id="bouton"><a href="medecin_place.php">Accueil</a></li>
+        <li id="bouton"><a href="liste_patientM.php">listes patients</a></li>
+        <li id="bouton"><a href="rendez_vous.php">creer disponibilite</a></li>
+        <li id="bouton"><a href="mes_disponibilites.php">Mes disponibilites</a></li>
+        
+        <li id="bouton"><a href="gerer_dossiers_patients.php">gerer dossiers patients</a></li>
+        <li>
+            <form action="recherche.php" method="GET" class="search">
+                <select name="categorie" id="categorie">
+                    <option value="nom_patient">Nom</option>
+                    <option value="prenom_patient">Prénom</option>
+                    <option value="num_national">Numéro National</option>
+                    <option value="num_telephone">Numéro Téléphone</option>
+                    <option value="email">Email</option>
+                </select>
+                <input type="search" name="critere" placeholder="Entrez le critère de recherche">
+                <button type="submit">Rechercher</button>
+            </form>
+        </li>
+		<li id="bouton"><a href="deconnexion.php">Deconnexion</a></li>
+		 <?php
+			 }else{
+				header('location:connexionpagemedecin.php');
+			 }
+		 ?>
+    </ul>
+</body>
+</html>
